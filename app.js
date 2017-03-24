@@ -8,7 +8,7 @@ app.get('*', function(req, res) {
     if (req.url == '/' || req.url == '/home') {
         res.sendFile(__dirname + '/public/index.html');
     } else {
-        res.status(404);
+        res.sendFile(__dirname + '/public/404.html');
     }
 });
 
