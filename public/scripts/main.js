@@ -9,48 +9,49 @@ function save() {
 
     var exp_email = /\w+@\w+\.+[a-z]/;
     var exp_phone = /(\+?( |-|\.)?\d{1,2}( |-|\.)?)?(\(?\d{3}\)?|\d{3})( |-|\.)?(\d{3}( |-|\.)?\d{4})/;
+    var exp_password = /^(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/;
 
     if ( name == '' || lastName == '' || phone == '' || email == '' || password == '' || rePassword == '' ) {
-        document.getElementById('alerta').innerHTML = 
-        '<div class="alert alert-danger" role="alert">' +
+        document.getElementById('alert').innerHTML = 
+        '<div class="alert alert-danger animated tada" role="alert">' +
             'There are empty fields!' +
         '</div>'
     } else if (!exp_phone.test(phone)) {
-        document.getElementById('alerta').innerHTML = 
-        '<div class="alert alert-danger" role="alert">' +
+        document.getElementById('alert').innerHTML = 
+        '<div class="alert alert-danger animated tada" role="alert">' +
             'The phone must have a minimum of 10 characters!' +
         '</div>'
     } else if (!exp_email.test(email)) {
-        document.getElementById('alerta').innerHTML = 
-        '<div class="alert alert-danger" role="alert">' +
+        document.getElementById('alert').innerHTML = 
+        '<div class="alert alert-danger animated tada" role="alert">' +
             'The email is not valid!' +
         '</div>'
+    } else if (!exp_password.test(password)) {
+        document.getElementById('alert').innerHTML = 
+        '<div class="alert alert-danger animated tada" role="alert">' +
+            'The password must have a minimum of 8 characters, a capital letter and a number!' +
+        '</div>'
+
+        $(':password').val('');
+
     } else if ( password != rePassword ) {
-        document.getElementById('alerta').innerHTML = 
-        '<div class="alert alert-danger" role="alert">' +
+        document.getElementById('alert').innerHTML = 
+        '<div class="alert alert-danger animated tada" role="alert">' +
             'Passwords do not match!' +
         '</div>'
 
         $(':password').val('');
 
-    } else if ( password.length < 8 && rePassword.length < 8 ) {
-        document.getElementById('alerta').innerHTML = 
-        '<div class="alert alert-danger" role="alert">' +
-            'Passwords must be at least 8 characters long!' +
-        '</div>'
-
-        $(':password').val('');
-
     } else {
-        document.getElementById('alerta').innerHTML = 
-        '<div class="alert alert-success" role="alert">' +
+        document.getElementById('alert').innerHTML = 
+        '<div class="alert alert-success animated bounceIn" role="alert">' +
             '<strong>Thank you!</strong> Your form has been submitted successfully.' +
         '</div>'
     }
 
     setTimeout(function(){
-        document.getElementById('alerta').innerHTML = ''
-    }, 2000);
+        document.getElementById('alert').innerHTML = ''
+    }, 2500);
 
 }
 
