@@ -1,68 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Form with validations</title>
-    <link rel="icon" type="image/png" href="images/favicon.png">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles/animate.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link rel="stylesheet" href="styles/main.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script src="scripts/main.js"></script>
-</head>
-<body>
 
-    <div class="container">
+    <head>
+        <meta charset="UTF-8">
+        <title>Form with validations</title>
+        <link rel="icon" type="image/png" href="images/favicon.png">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+        <link rel="stylesheet" href="styles/animate.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        <link rel="stylesheet" href="styles/main.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script src="scripts/main.js"></script>
+    </head>
 
-        <h1 class="text-center title">Form with validations</h1>
+    <body>
 
-        <div class="row">
-            <div class="form-group col-md-6">
-                <label>Name</label>
-                <input type="text" class="form-control" id="name" onkeyup="keyUp()">
-            </div>
-
-            <div class="form-group col-md-6">
-                <label>Last Name</label>
-                <input type="text" class="form-control" id="lastName" onkeyup="keyUp()">
+        <div class="jumbotron">
+            <div class="container">
+                <h1 class="text-center title">Form with validations</h1>
             </div>
         </div>
 
-        <div class="row">
-            <div class="form-group col-md-6">
-                <label>Phone</label>
-                <input type="number" class="form-control" id="phone" onkeyup="keyUp()">
+        <div class="container">
+
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Name</label>
+                    <input type="text" class="form-control" id="name" onkeyup="keyUp()">
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label>Last Name</label>
+                    <input type="text" class="form-control" id="lastName" onkeyup="keyUp()">
+                </div>
             </div>
 
-            <div class="form-group col-md-6">
-                <label>Email</label>
-                <input type="email" class="form-control" id="email" onkeyup="keyUp()">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Phone</label>
+                    <input type="number" class="form-control" id="phone" onkeyup="keyUp()">
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label>Email</label>
+                    <input type="email" class="form-control" id="email" onkeyup="keyUp()">
+                </div>
             </div>
+
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Password</label>
+                    <input type="password" class="form-control" id="password">
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label>Confirm Password</label>
+                    <input type="password" class="form-control" id="re_password">
+                </div>
+            </div>
+
+                <div class="form-group">
+                    <button class="btn btn-success" onclick="save()">Save</button>
+                </div>
+
+                <br><br><br>
+
+                <div id="alert" class="text-center">
+                </div>
+
         </div>
-
-        <div class="row">
-            <div class="form-group col-md-6">
-                <label>Password</label>
-                <input type="password" class="form-control" id="password">
-            </div>
-
-            <div class="form-group col-md-6">
-                <label>Confirm Password</label>
-                <input type="password" class="form-control" id="re_password">
-            </div>
-        </div>
-
-            <div class="form-group">
-                <button class="btn btn-success" onclick="save()">Save</button>
-            </div>
-
-            <br><br><br>
-
-            <div id="alert" class="text-center">
-            </div>
-
-    </div>
+        
+    </body>
     
-</body>
 </html>

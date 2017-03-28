@@ -26,18 +26,18 @@ function save() {
         '<div class="alert alert-danger animated tada" role="alert">' +
             'The email is not valid!' +
         '</div>'
-    } else if (!exp_password.test(password)) {
-        document.getElementById('alert').innerHTML = 
-        '<div class="alert alert-danger animated tada" role="alert">' +
-            'The password must have a minimum of 8 characters, a capital letter and a number!' +
-        '</div>'
-
-        $(':password').val('');
-
     } else if ( password != rePassword ) {
         document.getElementById('alert').innerHTML = 
         '<div class="alert alert-danger animated tada" role="alert">' +
             'Passwords do not match!' +
+        '</div>'
+
+        $(':password').val('');
+
+    } else if (!exp_password.test(password)) {
+        document.getElementById('alert').innerHTML = 
+        '<div class="alert alert-danger animated tada" role="alert">' +
+            'The password must have a minimum of 8 characters, a capital letter and a number!' +
         '</div>'
 
         $(':password').val('');
@@ -47,11 +47,14 @@ function save() {
         '<div class="alert alert-success animated bounceIn" role="alert">' +
             '<strong>Thank you!</strong> Your form has been submitted successfully.' +
         '</div>'
+
+        $('input').val('');
+
     }
 
     setTimeout(function(){
         document.getElementById('alert').innerHTML = ''
-    }, 2500);
+    }, 3000);
 
 }
 
