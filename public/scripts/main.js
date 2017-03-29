@@ -1,54 +1,44 @@
+var alert = document.getElementById('alertTemplate').innerHTML,
+alertTemplate = Handlebars.compile(alert);
+
+var post = document.getElementById('postsTemplate').innerHTML,
+postsTemplate = Handlebars.compile(post);
+
+var name = document.getElementById('name'),
+lastName = document.getElementById('lastName'),
+phone = document.getElementById('phone'),
+email = document.getElementById('email'),
+password = document.getElementById('password'),
+rePassword = document.getElementById('re_password');
+
+var exp_email = /\w+@\w+\.+[a-z]/,
+exp_phone = /(\+?( |-|\.)?\d{1,2}( |-|\.)?)?(\(?\d{3}\)?|\d{3})( |-|\.)?(\d{3}( |-|\.)?\d{4})/,
+exp_password = /^(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/;
+
 function save() { 
 
-    var name = document.getElementById('name').value;
-    var lastName = document.getElementById('lastName').value;
-    var phone = document.getElementById('phone').value;
-    var email = document.getElementById('email').value;
-    var password = document.getElementById('password').value;
-    var rePassword = document.getElementById('re_password').value;
-
-    var exp_email = /\w+@\w+\.+[a-z]/;
-    var exp_phone = /(\+?( |-|\.)?\d{1,2}( |-|\.)?)?(\(?\d{3}\)?|\d{3})( |-|\.)?(\d{3}( |-|\.)?\d{4})/;
-    var exp_password = /^(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/;
-
-    if ( name == '' || lastName == '' || phone == '' || email == '' || password == '' || rePassword == '' ) {
-        document.getElementById('alert').innerHTML = 
-        '<div class="alert alert-danger animated tada" role="alert">' +
-            'There are empty fields!' +
-        '</div>'
-    } else if (!exp_phone.test(phone)) {
-        document.getElementById('alert').innerHTML = 
-        '<div class="alert alert-danger animated tada" role="alert">' +
-            'The phone must have a minimum of 10 characters!' +
-        '</div>'
-    } else if (!exp_email.test(email)) {
-        document.getElementById('alert').innerHTML = 
-        '<div class="alert alert-danger animated tada" role="alert">' +
-            'The email is not valid!' +
-        '</div>'
-    } else if ( password != rePassword ) {
-        document.getElementById('alert').innerHTML = 
-        '<div class="alert alert-danger animated tada" role="alert">' +
-            'Passwords do not match!' +
-        '</div>'
+    if ( name.value == '' || lastName.value == '' || phone.value == '' || email.value == '' || password.value == '' || rePassword.value == '' ) {
+        document.getElementById('alert').innerHTML = alertTemplate({type: 'danger', body: 'There are empty fields!'});
+    } else if (!exp_phone.test(phone.value)) {
+        document.getElementById('alert').innerHTML = alertTemplate({type: 'danger', body: 'The phone must have a minimum of 10 characters!'});
+    } else if (!exp_email.test(email.value)) {
+        document.getElementById('alert').innerHTML = alertTemplate({type: 'danger', body: 'The email is not valid!'});
+    } else if ( password.value != rePassword.value ) {
+        document.getElementById('alert').innerHTML = alertTemplate({type: 'danger', body: 'Passwords do not match!'}); 
 
         $(':password').val('');
 
-    } else if (!exp_password.test(password)) {
-        document.getElementById('alert').innerHTML = 
-        '<div class="alert alert-danger animated tada" role="alert">' +
-            'The password must have a minimum of 8 characters, a capital letter and a number!' +
-        '</div>'
+    } else if (!exp_password.test(password.value)) {
+        document.getElementById('alert').innerHTML = alertTemplate({type: 'danger', body: 'The password must have a minimum of 8 characters, a capital letter and a number!'});
 
         $(':password').val('');
 
     } else {
-        document.getElementById('alert').innerHTML = 
-        '<div class="alert alert-success animated bounceIn" role="alert">' +
-            '<strong>Thank you!</strong> Your form has been submitted successfully.' +
-        '</div>'
+        document.getElementById('alert').innerHTML = alertTemplate({type: 'success', body: 'Thank you, Your form has been submitted successfully!'});
 
         $('input').val('');
+
+        sendPosts();
 
     }
 
@@ -58,63 +48,42 @@ function save() {
 
 }
 
-////////////////////////////////
+////////////// validation inputs //////////////////
 
 window.onload = function() {
 
-    var name = document.getElementById('name');
-    var lastName = document.getElementById('lastName');
-    var phone = document.getElementById('phone');
-    var email = document.getElementById('email');
+    var inputs = Array.from(document.querySelectorAll('input'));
 
-    name.onblur = function() {
-        if (name.value == '') {
-            name.style.background = '#f2dede';
-        }
-    }
+    inputs.forEach(function(input) {
 
-    lastName.onblur = function() {
-        if (lastName.value == '') {
-            lastName.style.background = '#f2dede';
-        }
-    }
+        input.addEventListener('blur', function() {
+            if(this.value == '') {
+                this.style.background = '#f2dede';
+            }
+        });
 
-    phone.onblur = function() {
-        if (phone.value == '') {
-            phone.style.background = '#f2dede';
-        }
-    }
+        input.addEventListener('focus', function() {
+            this.style.background = '#ffffff';
+        });
 
-    email.onblur = function() {
-        if (email.value == '') {
-            email.style.background = '#f2dede';
-        }
-    }
+    });
 
 }
 
+//////////////////////////// Draw Posts /////////////////////////////////////
 
-function keyUp() {
+function sendPosts() {
 
-    var name = document.getElementById('name').value;
-    var lastName = document.getElementById('lastName').value;
-    var phone = document.getElementById('phone').value;
-    var email = document.getElementById('email').value;
-
-    if(name) {
-        document.getElementById('name').style.background = '#ffffff';
-    }
-
-    if(lastName) {
-        document.getElementById('lastName').style.background = '#ffffff';
-    }
-
-    if(phone) {
-        document.getElementById('phone').style.background = '#ffffff';
-    }
-
-    if (email) {
-        document.getElementById('email').style.background = '#ffffff';
-    }
+        $.ajax({
+            url: 'https://jsonplaceholder.typicode.com/posts',
+            method: 'GET'
+        }).then(function(data) {
+            document.getElementById('posts').innerHTML = postsTemplate({items: data});
+        }).catch(function(err){
+            document.getElementById('posts').innerHTML = 
+            '<div class="alert alert-danger" rol="alert">' +
+                'Post Not Found' +
+            '</div>';
+        });
 
 }

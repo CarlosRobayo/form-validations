@@ -9,8 +9,26 @@
         <link rel="stylesheet" href="styles/animate.css">
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
         <link rel="stylesheet" href="styles/main.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-        <script src="scripts/main.js"></script>
+
+        <template id="alertTemplate">
+            <div class="alert alert-{{type}} animated tada" role="alert">
+                {{body}}
+            </div>
+        </template>
+
+        <template id="postsTemplate">
+            {{#each items}}
+                <div class="card">
+                    <div class="card-block">
+                        <h4 class="card-title">{{title}}</h4>
+                        <h6 class="card-subtitle mb-2 text-muted">Post #{{id}}</h6>
+                        <p class="card-text">{{body}}</p>
+                        <a target="_blank" href="http://jsonplaceholder.typicode.com/posts/" +{{id}} class="card-link">View on site</a>
+                    </div>
+                </div>
+            {{/each}}
+        </template>
+
     </head>
 
     <body>
@@ -68,7 +86,18 @@
                 <div id="alert" class="text-center">
                 </div>
 
+                <br><br>
+
+                <div id="posts" class="text-center">
+                </div>
+
+                <br>
+
         </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script src="scripts/handlebars.js"></script>
+        <script src="scripts/main.js"></script>
         
     </body>
     
