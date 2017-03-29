@@ -1,15 +1,18 @@
 var alert = document.getElementById('alertTemplate').innerHTML,
-alertTemplate = Handlebars.compile(alert);
+    alertTemplate = Handlebars.compile(alert);
 
 var post = document.getElementById('postsTemplate').innerHTML,
-postsTemplate = Handlebars.compile(post);
+    postsTemplate = Handlebars.compile(post);
+
+var error = document.getElementById('errorTemplate').innerHTML,
+    errorTemplate = Handlebars.compile(error);
 
 var name = document.getElementById('name'),
-lastName = document.getElementById('lastName'),
-phone = document.getElementById('phone'),
-email = document.getElementById('email'),
-password = document.getElementById('password'),
-rePassword = document.getElementById('re_password');
+    lastName = document.getElementById('lastName'),
+    phone = document.getElementById('phone'),
+    email = document.getElementById('email'),
+    password = document.getElementById('password'),
+    rePassword = document.getElementById('re_password');
 
 var exp_email = /\w+@\w+\.+[a-z]/,
 exp_phone = /(\+?( |-|\.)?\d{1,2}( |-|\.)?)?(\(?\d{3}\)?|\d{3})( |-|\.)?(\d{3}( |-|\.)?\d{4})/,
@@ -80,10 +83,6 @@ function sendPosts() {
         }).then(function(data) {
             document.getElementById('posts').innerHTML = postsTemplate({items: data});
         }).catch(function(err){
-            document.getElementById('posts').innerHTML = 
-            '<div class="alert alert-danger" rol="alert">' +
-                'Post Not Found' +
-            '</div>';
+            document.getElementById('posts').innerHTML = errorTemplate({type: 'danger', body: 'Posts Not Found'}); 
         });
-
 }
